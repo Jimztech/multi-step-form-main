@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import Info from "./Info";
+import Addons from "./Addons";
 import Plan from "./Plan";
+import Finishing from "./Finishing";
+import ThankYou from "./ThankYou";
 
 export default function Base() {
     return (
@@ -57,26 +60,46 @@ export default function Base() {
                 </div>
             </div>
 
+            {/* Desktop view */}
             <div className="h-[57.14vh] md:h-auto bg-high-medium-blue md:flex md:flex-col md:items-center py-8 md:bg-white">
                 <div className="hidden md:block w-full max-w-md">
-                    <Plan />
+                    <ThankYou />
                 </div>
 
-                <div className="hidden md:flex md:justify-end md:items-end md:mt-auto md:w-full md:max-w-md md:px-2">
-                    <Button>Next</Button>
-                </div>
+                <section className="hidden md:flex md:justify-between md:py-4 md:mt-auto md:w-full md:max-w-md">
+                    <div>
+                        <Button variant="ghost" className="text-destructive-grey hover:text-dark-blue">
+                            Go back
+                        </Button>
+                    </div>
+
+                    <div className="">
+                        <Button className="text-white bg-dark-blue">
+                            Next
+                        </Button>
+                    </div>
+                </section>
             </div>
 
-            <div className="h-[14.29vh] flex justify-end items-center px-2 md:hidden">
-                <Button className="text-white bg-dark-blue">
-                    Next
-                </Button>
-            </div>
+            {/* Mobile view */}
+            <section className="flex justify-between h-[14.29vh] py-4 md:hidden">
+                <div className="">
+                    <Button variant="ghost" className="text-destructive-grey hover:text-dark-blue">
+                        Go back
+                    </Button>
+                </div>
+
+                <div className="px-2">
+                    <Button className="text-white bg-dark-blue">
+                        Next
+                    </Button>
+                </div>
+            </section>
 
             {/* Absolutely positioned white div */}
             <div className="absolute inset-0 flex items-center justify-center md:hidden">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-[80%] max-w-md">
-                    <Info />
+                <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md">
+                    <ThankYou />
                 </div>
             </div>
         </section>
