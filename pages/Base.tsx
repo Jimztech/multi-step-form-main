@@ -21,9 +21,21 @@ export default function Base() {
 
     const CurrentComponent = steps[currentStep - 1].component;
 
-    const handleNext = () => {
-        if(currentStep < 5) {
-            setCurrentStep(currentStep + 1);
+    const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("Next button clicked, current step:", currentStep);
+            console.log("Event details:", e.type, e.currentTarget);
+            if (currentStep < 5) {
+                setCurrentStep(currentStep + 1);
+                console.log('Successfully moved to step:', currentStep + 1);
+            } else {
+                console.log('Already at last step');
+            }
+        } catch(error) {
+            console.error('Error in handleNext:', error);
+            alert('Error navigating: ' + error);
         }
     };
 
@@ -133,8 +145,8 @@ export default function Base() {
             )}
 
             {/* Absolutely positioned white div */}
-            <div className="absolute inset-0 flex items-center justify-center md:hidden">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md">
+            <div className="absolute top-[28.57vh] left-0 right-0 bottom-[14.29vh] flex items-start justify-center md:hidden pt-4 pointer-events-none">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md pointer-events-auto">
                     <CurrentComponent />
                 </div>
             </div>
