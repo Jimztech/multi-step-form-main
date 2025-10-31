@@ -145,7 +145,7 @@ export default function Base() {
             )}
 
             {/* Absolutely positioned white div */}
-            <div className="absolute top-[28.57vh] left-0 right-0 bottom-[14.29vh] flex items-start justify-center md:hidden pt-4 pointer-events-none">
+            <div className="absolute top-[24.57vh] left-0 right-0 bottom-[14.29vh] flex items-start justify-center md:hidden  pointer-events-none">
                 <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md pointer-events-auto">
                     <CurrentComponent />
                 </div>
