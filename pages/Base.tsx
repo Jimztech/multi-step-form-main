@@ -10,6 +10,7 @@ import { useState } from "react";
 
 export default function Base() {
     const [currentStep, setCurrentStep] = useState(1);
+    const [isStep1Valid, setIsStep1Valid] = useState(false);
 
     const steps = [
         { number: 1, label: "Your info", component: Info },
@@ -27,6 +28,13 @@ export default function Base() {
             e.stopPropagation();
             console.log("Next button clicked, current step:", currentStep);
             console.log("Event details:", e.type, e.currentTarget);
+
+            // Check validation for step 1
+        if (currentStep === 1 && !isStep1Valid) {
+            console.log('Step 1 validation failed - form is incomplete');
+            return; // Don't proceed to next step
+        }
+        
             if (currentStep < 5) {
                 setCurrentStep(currentStep + 1);
                 console.log('Successfully moved to step:', currentStep + 1);
@@ -89,7 +97,11 @@ export default function Base() {
             {/* Desktop view */}
             <div className="h-[57.14vh] md:h-auto bg-high-medium-blue md:flex md:flex-col md:items-center py-8 md:bg-white">
                 <div className="hidden md:block w-full max-w-md">
-                    <CurrentComponent />
+                    {currentStep === 1 ? (
+                        <CurrentComponent onValidationChange={setIsStep1Valid} />
+                    ) : (
+                        <CurrentComponent />
+                    )}
                 </div>
 
                 {!isThankYouPage && (
@@ -147,7 +159,11 @@ export default function Base() {
             {/* Absolutely positioned white div */}
             <div className="absolute top-[19.57vh] left-0 right-0 bottom-[14.29vh] flex items-start justify-center md:hidden  pointer-events-none">
                 <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md pointer-events-auto">
-                    <CurrentComponent />
+                    {currentStep === 1 ? (
+                        <CurrentComponent onValidationChange={setIsStep1Valid} />
+                    ) : (
+                        <CurrentComponent />
+                    )}
                 </div>
             </div>
         </section>
