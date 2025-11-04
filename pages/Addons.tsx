@@ -1,84 +1,96 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { useState  } from "react";
 
-export default function Addons() {
+interface AddonsProps {
+    selectedPlan?: string;
+    isYearly?: boolean;
+    onAddonsChange?: (addons: Array<{name: string, price: number}>) => void;
+}
+
+export default function Addons({ isYearly = false, onAddonsChange }: AddonsProps) {
+    const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+
+
+    const addons = [
+        {
+            id: "online",
+            name: "Online service",
+            description: "Access to multiplayer games",
+            monthlyPrice: 1,
+            yearlyPrice: 10,
+        },
+        {
+            id: "storage",
+            name: "Larger storage",
+            description: "Extra 1TB of cloud save",
+            monthlyPrice: 2,
+            yearlyPrice: 20,
+        },
+        {
+            id: "profile",
+            name: "Customizable profile",
+            description: "Custom theme on your profile",
+            monthlyPrice: 2,
+            yearlyPrice: 20,
+        },
+    ];
+
+    const handleAddonToggle = (addonId: string) => {
+        const newSelected = selectedAddons.includes(addonId)
+            ? selectedAddons.filter(id => id !== addonId)
+            : [...selectedAddons, addonId];
+        
+        setSelectedAddons(newSelected);
+
+        // Send selected addons data to parent
+        const selectedAddonsData = newSelected.map(id => {
+            const addon = addons.find(a => a.id === id);
+            return {
+                name: addon!.name,
+                price: isYearly ? addon!.yearlyPrice : addon!.monthlyPrice
+            };
+        });
+        onAddonsChange?.(selectedAddonsData);
+    };
+
     return (
-        <section>
-            <h1 className="text-dark-blue font-bold text-2xl md:text-4xl">Pick add-ons</h1>
-            <p className="text-destructive-grey md:py-2">
-                Add-ons help enhance your gaming experience.
-            </p>
-
-            <div className="">
-                <section className="border-2 border-light-purple rounded-lg my-2 md:my-4 flex items-center gap-4 justify-between px-4 py-2">
+        <div>
+            {addons.map((addon) => (
+                <section 
+                    key={addon.id}
+                    className={`border-2 rounded-lg my-2 md:my-4 flex items-center gap-4 justify-between px-4 py-2 cursor-pointer ${
+                        selectedAddons.includes(addon.id) 
+                            ? 'border-dark-blue bg-high-medium-blue' 
+                            : 'border-light-purple'
+                    }`}
+                    onClick={() => handleAddonToggle(addon.id)}
+                >
                     <section className="flex gap-4 items-center">
                         <div>
                             <Checkbox 
-                                id="online"
+                                id={addon.id}
+                                checked={selectedAddons.includes(addon.id)}
+                                onCheckedChange={() => handleAddonToggle(addon.id)}
                                 className="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
                             />
                         </div>
 
                         <div>
-                            <Label htmlFor="online" className="font-semibold md:text-xl text-lg text-dark-blue">
-                                Online service
+                            <Label htmlFor={addon.id} className="font-semibold md:text-xl text-lg text-dark-blue">
+                                {addon.name}
                             </Label>
-                            <p className="text-light-purple md:text-base text-sm">Access to multiplayer games</p>
+                            <p className="text-destructive-grey md:text-base text-sm">{addon.description}</p>
                         </div>
                     </section>
 
                     <div>
-                        <span className="block">+1$/mo</span>
-                        <span className="block">+10$/yr</span>
+                        <span className="block text-dark-blue">
+                            {isYearly ? `+$${addon.yearlyPrice}/yr` : `+$${addon.monthlyPrice}/mo`}
+                        </span>
                     </div>
                 </section>
-
-                <section className="border-2 border-light-purple rounded-lg my-2 md:my-4 flex items-center gap-4 justify-between px-4 py-2">
-                    <div className="flex gap-4 items-center">
-                        <section>
-                            <Checkbox 
-                                id="storage"
-                                className="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
-                            />
-                        </section>
-
-                        <div>
-                            <Label htmlFor="storage" className="font-semibold md:text-xl text-lg text-dark-blue">
-                                Larger Storage
-                            </Label>
-                            <p className="text-light-purple md:text-base text-sm">Extra 1TB of cloud save</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <span className="block">+2$/mo</span>
-                        <span className="block">+20$/yr</span>
-                    </div>
-                </section>
-
-                <section className="border-2 border-light-purple rounded-lg my-2 md:my-4 flex items-center gap-4 justify-between px-4 py-2">
-                    <section className="flex gap-4 items-center">
-                        <div>
-                            <Checkbox 
-                                id="custom"
-                                className="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
-                            />
-                        </div>
-
-                        <div>
-                            <Label htmlFor="custom" className="font-semibold md:text-xl text-lg text-dark-blue">
-                                Customizable profile
-                            </Label>
-                            <p className="text-light-purple md:text-base text-sm">Custom theme on your profile</p>
-                        </div>
-                    </section>
-
-                    <div>
-                        <span className="block">+2$/mo</span>
-                        <span className="block">+20$/yr</span>
-                    </div>
-                </section>
-            </div>
-        </section>
-    )
+            ))}
+        </div>
+    );
 }

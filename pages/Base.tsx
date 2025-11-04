@@ -11,6 +11,12 @@ import { useState } from "react";
 export default function Base() {
     const [currentStep, setCurrentStep] = useState(1);
     const [isStep1Valid, setIsStep1Valid] = useState(false);
+    const [selectedPlan, setSelectedPlan] = useState<string>("");   // props for Plan.tsx
+    const [isYearly, setIsYearly] = useState(false);
+    const [selectedPlanPrice, setSelectedPlanPrice] = useState<number>(0);
+    const [selectedAddons, setSelectedAddons] = useState<Array<{name: string, price: number}>>([]);
+
+
 
     const steps = [
         { number: 1, label: "Your info", component: Info },
@@ -21,6 +27,41 @@ export default function Base() {
     ];
 
     const CurrentComponent = steps[currentStep - 1].component;
+
+    const renderCurrentComponent = () => {
+        if (currentStep === 1) {
+            return <CurrentComponent onValidationChange={setIsStep1Valid} />
+        } else if (currentStep === 2) {
+            return (
+                <CurrentComponent 
+                    onPlanSelect={setSelectedPlan}
+                    isYearly={isYearly}
+                    onYearlyChange={setIsYearly}
+                    onPlanPriceSelect={setSelectedPlanPrice}
+                />
+            );
+        } else if (currentStep === 3) {
+            return (
+                <CurrentComponent 
+                    selectedPlan={selectedPlan}
+                    isYearly={isYearly}
+                    onAddonsChange={setSelectedAddons}
+                />
+            );
+        } else if (currentStep === 4) {
+            return (
+                <CurrentComponent 
+                    selectedPlan={selectedPlan}
+                    isYearly={isYearly}
+                    selectedAddons={selectedAddons}
+                    onChangeStep={setCurrentStep}
+                    selectedPlanPrice={selectedPlanPrice}
+                />
+            );
+        } else {
+            return <CurrentComponent />
+        }
+    }
 
     const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
         try {
@@ -97,11 +138,7 @@ export default function Base() {
             {/* Desktop view */}
             <div className="h-[57.14vh] md:h-auto bg-high-medium-blue md:flex md:flex-col md:items-center py-8 md:bg-white">
                 <div className="hidden md:block w-full max-w-md">
-                    {currentStep === 1 ? (
-                        <CurrentComponent onValidationChange={setIsStep1Valid} />
-                    ) : (
-                        <CurrentComponent />
-                    )}
+                    {renderCurrentComponent()}
                 </div>
 
                 {!isThankYouPage && (
@@ -159,11 +196,7 @@ export default function Base() {
             {/* Absolutely positioned white div */}
             <div className="absolute top-[19.57vh] left-0 right-0 bottom-[14.29vh] flex items-start justify-center md:hidden  pointer-events-none">
                 <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md pointer-events-auto">
-                    {currentStep === 1 ? (
-                        <CurrentComponent onValidationChange={setIsStep1Valid} />
-                    ) : (
-                        <CurrentComponent />
-                    )}
+                    {renderCurrentComponent()}
                 </div>
             </div>
         </section>
