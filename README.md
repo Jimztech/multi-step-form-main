@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Multi-step Form
+
+## Overview
+
+This is a solution to the [Multi-step form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+
+## Screenshot
+
+![Project Screenshot](./public/active-states-step-1.jpg)
+
+## Links
+
+- Solution URL: [Add solution URL here]
+- Live Site URL: [Add live site URL here]
+
+## Built With
+
+- TypeScript - For type-safe code
+- Next.js - React framework for production
+- Tailwind CSS - Utility-first CSS framework
+- shadcn/ui - Re-usable component library
+
+## Features
+
+- Multi-step form navigation with progress tracking
+- Form validation on each step
+- Form data persistence across steps
+- Responsive design for all screen sizes
+- Accessible form controls and navigation
+- Summary view before final submission
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18.x or higher
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/Jimztech/multi-step-form-main.git
+```
+
+2. Navigate to the project directory
+```bash
+cd multi-step-form-main
+```
+
+3. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+4. Run the development server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── app/
+│   ├── page.tsx
+│   └── layout.tsx
+├── components/
+│   ├── ui/
+│   └── form/
+├── lib/
+├── public/
+|__  pages/
+```
 
-## Learn More
+## What I Learned
 
-To learn more about Next.js, take a look at the following resources:
+This project helped me improve my skills in:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Managing complex form state across multiple steps
+- Implementing form validation with TypeScript
+- Building reusable components with shadcn/ui
+- Creating responsive layouts with Tailwind CSS
+- Handling client-side routing in Next.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Continued Development
 
-## Deploy on Vercel
+Areas for future improvement:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Add animation transitions between steps
+- Implement backend API integration
+- Add more comprehensive form validation
+- Enhance accessibility features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Useful Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [shadcn/ui Documentation](https://ui.shadcn.com)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+
+## Author
+
+- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/Jimztech)
+- GitHub - [@yourusername](https://github.com/jimztech)
+
+## Acknowledgments
+
+Thanks to Frontend Mentor for providing this challenge and to the community for their feedback and support.
